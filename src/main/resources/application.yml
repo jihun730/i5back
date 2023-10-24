@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    url: ${DATABASE_URL}
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      use-new-id-generator-mappings: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+    show-sql: true
+
+  kafka:
+    consumer:
+      bootstrap-servers: ${KAFKA_URL}
+      group-id: kafka-demo
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: ${KAFKA_URL}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+jwt:
+  secret: mysecret.sjb_2023_.qwer1234.Dkagh1234! # 길어야 함
+  token.expired-time-ms: 2592000000 # 30 days
+# Spring Boot 로깅 설정
+logging:
+  level:
+    org.springframework.web.socket: DEBUG  # WebSocket 로그 레벨 설정
+  file:
+    name: websocket.log  # 로그 파일 이름
+    path: /var/log/my-application/  # 로그 파일 경로
+
+# WebSocket 로깅을 위한 Logback 패턴 설정
+logging.pattern.console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+logging.pattern.file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+
